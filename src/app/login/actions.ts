@@ -23,8 +23,12 @@ export async function loginAction(state: FormState, formData: FormData) {
       where: { email },
     });
 
-    if (!colaborador || !colaborador.ativo) {
-      return { error: "Usuário não encontrado ou inativo." };
+    if (!colaborador) {
+      return { error: "Usuário não encontrado." };
+    }
+
+    if (!colaborador.ativo) {
+      return { error: "Seu cadastro foi recebido e está aguardando aprovação da diretoria." };
     }
 
     const senhaValida = await bcrypt.compare(senha, colaborador.senha);

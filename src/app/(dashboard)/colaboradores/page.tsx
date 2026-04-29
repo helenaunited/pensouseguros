@@ -179,7 +179,7 @@ export default function ColaboradoresPage() {
             <UserX className="w-6 h-6" />
           </div>
           <div>
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Inativos</p>
+            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Aguardando / Inativos</p>
             <p className="text-3xl font-bold text-gray-700">{totalInativos}</p>
           </div>
         </div>
@@ -276,8 +276,8 @@ export default function ColaboradoresPage() {
                           <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Ativo
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-100 text-gray-500 rounded-full text-xs font-semibold">
-                          <span className="w-1.5 h-1.5 rounded-full bg-gray-400" /> Inativo
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-yellow-50 text-yellow-700 rounded-full text-xs font-semibold">
+                          <span className="w-1.5 h-1.5 rounded-full bg-yellow-500" /> Aguardando Aprovação
                         </span>
                       )}
                     </td>
@@ -301,7 +301,7 @@ export default function ColaboradoresPage() {
                         ) : (
                           <button
                             onClick={() => handleReativar(c.id)}
-                            title="Reativar"
+                            title="Aprovar Acesso"
                             className="p-2 rounded-lg hover:bg-green-50 text-gray-400 hover:text-green-600 transition-colors"
                           >
                             <UserCheck className="w-4 h-4" />

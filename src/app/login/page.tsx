@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { loginAction } from "./actions";
 import { ShieldAlert, Mail, Lock, Loader2, AlertCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [state, action, isPending] = useActionState(loginAction, undefined);
@@ -76,6 +77,15 @@ export default function LoginPage() {
               )}
             </button>
           </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-sm text-gray-600">
+              Ainda não tem acesso?{" "}
+              <Link href="/cadastro" className="text-[#004b8d] font-semibold hover:underline">
+                Solicitar cadastro
+              </Link>
+            </p>
+          </div>
         </div>
 
         {/* Footer */}
