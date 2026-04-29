@@ -9,8 +9,14 @@ const prismaClientSingleton = () => {
     });
     return new PrismaClient({ adapter });
   } else {
-    // Pass datasourceUrl directly if no adapter is used
-    return new PrismaClient({ datasourceUrl: 'file:./dev.db' });
+    // Pass url directly if no adapter is used
+    return new PrismaClient({
+      datasources: {
+        db: {
+          url: 'file:./dev.db',
+        },
+      },
+    });
   }
 };
 
