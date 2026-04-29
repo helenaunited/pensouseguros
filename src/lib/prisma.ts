@@ -1,7 +1,5 @@
 import { PrismaClient } from '@prisma/client';
 import { PrismaLibSql } from '@prisma/adapter-libsql';
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
-import Database from 'better-sqlite3';
 
 const prismaClientSingleton = () => {
   if (process.env.TURSO_DATABASE_URL && process.env.TURSO_AUTH_TOKEN) {
@@ -12,9 +10,8 @@ const prismaClientSingleton = () => {
     });
     return new PrismaClient({ adapter });
   } else {
-    // Local connection for development
-    const adapter = new PrismaBetterSqlite3({ url: 'file:./dev.db' });
-    return new PrismaClient({ adapter });
+    // Local connection for development (uses default SQLite engine)
+    return new PrismaClient();
   }
 };
 
