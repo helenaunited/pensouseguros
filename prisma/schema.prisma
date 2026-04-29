@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String     @id @default(uuid())
+  nome      String
+  email     String     @unique
+  role      String     // 'Admin' ou 'Especialista'
+  propostas Proposta[]
+}
+
+model Proposta {
+  id                    String   @id @default(uuid())
+  cliente               String
+  seguradora            String   // 'Grupo_Porto', 'Tokio_Marine', 'Suhai', 'Allianz', 'Zurich', 'Pier', 'Bradesco', 'Yelum', 'HDI', 'Youse'
+  status                String   // 'Pendente', 'Emitida', 'Recusada', 'Cancelada'
+  motivo_pendencia      String   // 'Vistoria_Previa', 'Instalacao_Rastreador', 'Classe_Bonus', 'Documentacao', 'Outros', 'Nenhum'
+  data_ultima_alteracao DateTime @default(now())
+  especialista_id       String
+  especialista          User     @relation(fields: [especialista_id], references: [id])
+}
+
+model Colaborador {
+  id        String    @id @default(uuid())
+  nome      String
+  email     String    @unique
+  telefone  String
+  funcao    String
+  senha     String    @default("") // Hash da senha (adicionado para login)
+  role      String    @default("colaborador") // 'admin' ou 'colaborador'
+  ativo     Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  demandas  Demanda[]
+}
+
+model Demanda {
+  id             String      @id @default(uuid())
+  titulo         String
+  descricao      String
+  status         String      @default("Aguardando") // 'Aguardando', 'Em andamento', 'Finalizada', 'Recusada', 'Cancelada'
+  prioridade     String      @default("Normal")
+  createdAt      DateTime    @default(now())
+  prazo          DateTime
+  colaborador_id String
+  colaborador    Colaborador @relation(fields: [colaborador_id], references: [id])
+}
